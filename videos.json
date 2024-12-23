@@ -1,0 +1,11 @@
+{
+    "alerts.spec.ts": ["lprusa", "tracker"],
+    "multichannel_archive.spec.ts": ["tracker", "H265-2K", "witcher_mjpeg", "witcher_640", "eos_short"],
+    "authorization.spec.ts": ["lprusa", "tracker"],
+    "bookmarks.spec.ts": ["tracker"],
+    "cameras_list.spec.ts": ["lprusa", "tracker"],
+    "detectors.spec.ts": ["faceoffice", "tracker", "Lpr3", "witcher_640"],
+    "export.spec.ts": ["tracker", "H265-2K", "witcher_mjpeg", "witcher_640"],
+    "layouts.spec.ts": ["lprusa", "tracker"],
+    "live.spec.ts": ["lprusa", "tracker", "H265-2K", "H265-640-REAL-CROP", "witcher_1920x800_H264", "witcher_640", "witcher_704x576_H264"]
+}
