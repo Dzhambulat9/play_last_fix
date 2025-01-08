@@ -459,7 +459,7 @@ test.describe("Alarms. Common block", () => {
 
         await expect(locators.cellTitle).toHaveCount(2);
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);   // поменял videoCell
 
         await locators.alertReviewIcon.nth(0).click();
 
@@ -467,7 +467,7 @@ test.describe("Alarms. Common block", () => {
         let responsePromise = page.waitForResponse(request => request.url().includes('cancelalert'));
         await locators.liveMode.click();
         await responsePromise;
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);   // поменял videoCell
 
         //await expect(locators.alertReviewIcon.locator('button')).toHaveCount(1); из-за .locator('button') не видит
         await expect(locators.alertReviewIcon).toHaveCount(1);
@@ -489,8 +489,8 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.cellTitle).toHaveCount(2);
         await locators.alertReviewIcon.nth(0).click();
         await locators.alertReviewIcon.nth(1).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/); //сменил videoCell.nth(0) на .videoCellWrapper.nth(0)
-        await expect(locators.videoCellWrapper.nth(1)).toHaveClass(/.*VideoCell--alert.*/); //сменил videoCell.nth(0) на .videoCellWrapper.nth(0)
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); //сменил videoCell.nth(0) на .videoCellWrapper.nth(0)
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/); //сменил videoCell.nth(1) на .videoCellWrapper.nth(0)
 
         await openCameraList(page);
 
@@ -501,7 +501,7 @@ test.describe("Alarms. Common block", () => {
         let responsePromise = page.waitForResponse(request => request.url().includes('cancelalert'));
         await locators.cameraListItem.nth(2).click();
         await responsePromise;
-        await expect(locators.videoCellWrapper).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
 
         await clientNotFall(page);
     });
@@ -513,7 +513,7 @@ test.describe("Alarms. Common block", () => {
 
         await expect(locators.cellTitle).toHaveCount(2);
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
         await locators.alertReviewIcon.nth(0).click();
 
         //await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3); //убрали локатор приходится привязываться к роли
@@ -522,7 +522,7 @@ test.describe("Alarms. Common block", () => {
         await locators.videoCellWrapper.click();
         await responsePromise;
         await expect(locators.alertReviewIcon).toHaveCount(1);
-        await expect(locators.videoCellWrapper).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
 
         await clientNotFall(page);
     });
@@ -711,7 +711,7 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.videoElement.nth(0)).toBeVisible();
 
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
         await locators.alertReviewIcon.nth(0).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3); // поменял класс alertReviewIcon
         await locators.alertGroupReviewIcon.locator('button').nth(0).click();
@@ -720,7 +720,7 @@ test.describe("Alarms. Common block", () => {
         await locators.liveMode.click();
 
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
         await locators.alertReviewIcon.nth(0).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3); // поменял класс alertReviewIcon
         await locators.alertGroupReviewIcon.locator('button').nth(1).click();
@@ -731,7 +731,7 @@ test.describe("Alarms. Common block", () => {
         await locators.liveMode.click();
 
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
         await locators.alertReviewIcon.nth(0).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
         //await locators.alertReviewIcon.locator('button').nth(2).click(); 
@@ -759,7 +759,7 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.cellTitle).toHaveCount(2);
 
         await locators.alertReviewIcon.nth(1).click(); 
-        await expect(locators.videoCellWrapper.nth(1)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/); // поменял класс videoCell
         await locators.alertReviewIcon.nth(1).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
         //await locators.alertReviewIcon.locator('button').nth(1).click(); заменил
@@ -784,19 +784,19 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.cellTitle).toHaveCount(2);
 
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
         await locators.alertReviewIcon.nth(0).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
         await locators.alertGroupReviewIcon.locator('button').nth(1).click();
         await expect(locators.modalWindowAcceptButton).toBeDisabled();
         await locators.modalWindowRejectButton.click();
         await expect(locators.modalWindow).toBeHidden();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял videoCell
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
         await locators.alertGroupReviewIcon.locator('button').nth(1).click();
         await locators.modalWindowTextArea.fill('Sergeant Billy was here 2');
         await locators.modalWindowRejectButton.click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
 
         await clientNotFall(page);
     });
@@ -809,7 +809,7 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.cellTitle).toHaveCount(2);
 
         await locators.alertReviewIcon.nth(1).click();
-        await expect(locators.videoCellWrapper.nth(1)).toHaveClass(/.*VideoCell--alert.*/); // изменил локатор
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/); // изменил локатор
         await locators.alertReviewIcon.nth(1).click();
         //await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3); // поменял локатор
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3); //
@@ -824,7 +824,7 @@ test.describe("Alarms. Common block", () => {
         await locators.videoElement.nth(0).click();
         await locators.singleArchiveMode.click();
     
-        await locators.webpage.locator('.controls').evaluate(() => {
+        await locators.webpage.locator('.controls').first().evaluate(() => {
             let archivePointer: HTMLElement = document.querySelector('.control')!;
             archivePointer.style.display = "none";
         });
@@ -854,8 +854,8 @@ test.describe("Alarms. Common block", () => {
 
         await locators.alertReviewIcon.nth(1).click();
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.videoCellWrapper.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
-        await expect(locators.videoCellWrapper.nth(1)).toHaveClass(/.*VideoCell--alert.*/); // изменил локатор
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // изменил локатор
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/); // изменил локатор
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(2);
         // await expect(locators.alertContainer.nth(0).locator('div').first()).toHaveCSS("background-image", /.*blob:.*/);
@@ -867,8 +867,8 @@ test.describe("Alarms. Common block", () => {
 
         await page.waitForTimeout(2000);
         await page.reload();
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 });
-        await expect(locators.videoCell.nth(1)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 });   // поменял videoCell
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/); // поменял videoCell
         await locators.alertPanelButton.waitFor({ state: 'attached' });
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(2);
@@ -879,7 +879,7 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.alertContainer.nth(1).locator('p').first()).toHaveText(secondCameraName);
         await expect(locators.alertContainer.nth(1).locator('p').last()).toContainText(/\d?\d:\d{2}:\d{2}/);
         await locators.alertReviewIcon.nth(1).click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
         await locators.alertReviewIcon.locator('button').nth(2).click();
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
 
@@ -1265,15 +1265,17 @@ test.describe("Alarms. Tests with macro", () => {
         await expect(locators.alertContainer.nth(0).locator('p').last()).toContainText(/\d{2}:\d{2}:\d{2}/);
 
         await locators.cameraListItem.first().click();
-        await expect(locators.videoElement).toBeVisible();
+        await expect(locators.videoElement.nth(0)).toBeVisible();                        // поменял videoCell
         await closeCameraList(page);
         await locators.alertReviewIcon.click();
-        await expect(locators.videoCell).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
         expect(await page.title()).toContain('(4)');
         await locators.alertReviewIcon.click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(2).click();
-        await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);    // поменял alertReviewIcon
+        await locators.alertGroupReviewIcon.locator('button').nth(2).click();                             // поменял alertReviewIcon
+        await locators.alertReviewIcon.waitFor({state: 'detached', timeout: 3000 })   //там появилась задержка в пару сек между кликом и открытием панели 
+        await expect(locators.videoElement.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
+        
         expect(await page.title()).toContain('(3)');
 
         let macroAlerts = await getActiveAlerts(fourthCamera.accessPoint);
@@ -1297,7 +1299,7 @@ test.describe("Alarms. Tests with macro", () => {
         await createCycleAlarmingMacro(secondCamera, 10000, 'Macro1', true, 'Black', 'RAM_Always');
 
         await locators.alertPanelButton.waitFor({ state: 'attached', timeout: 15000 });
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/); // поменял videoCell
 
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
@@ -1389,7 +1391,7 @@ test.describe("Alarms. Tests with macro", () => {
         await createDetectorAlarmingMacro(Configuration.cameras[1], 0, "Macrocomand", true, "Black", "RAM_AlwaysIfNoActiveAlert");
 
         await locators.alertPanelButton.waitFor({ state: 'attached', timeout: 90000 });
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
 
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
@@ -1403,9 +1405,9 @@ test.describe("Alarms. Tests with macro", () => {
         const pointerTime = await locators.archivePointer.innerText();
         isTimeEquals(alertTime, pointerTime, 1);
         await locators.alertReviewIcon.click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(2).click();
-        await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);  // поменял alertReviewIcon
+        await locators.alertGroupReviewIcon.locator('button').nth(2).click();
+        await expect(locators.videoElement.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
 
         await clientNotFall(page);
     });
@@ -1424,12 +1426,12 @@ test.describe("Alarms. Tests with macro", () => {
         await createDetectorAlarmingMacro(Configuration.cameras[0], 0, "Macrocomand", true, "Black", "RAM_AlwaysIfNoActiveAlert");
 
         await locators.alertPanelButton.waitFor({ state: 'attached', timeout: 90000 });
-        await expect(locators.videoCell).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
         await changeAVDetector(Configuration.detectors[0].uid, [{ id: "enabled", value_bool: false }]);
 
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
-        await expect(locators.alertContainer.nth(0).locator('div').first()).toHaveCSS("background-image", /.*blob:.*/);
+        await expect(locators.alertContainer.nth(0).locator('div').first()).toHaveCSS("background-image", /blob:.*/);   // поменял /.*blob:.*/
         await expect(locators.alertContainer.nth(0).locator('p').first()).toHaveText(`${firstCamera.displayId}.${firstCamera.displayName}`);
         const alertTime = await locators.alertContainer.nth(0).locator('p').last().innerHTML();
 
@@ -1437,8 +1439,8 @@ test.describe("Alarms. Tests with macro", () => {
         await expect(locators.cellImage).toBeVisible();
         const pointerTime = await locators.archivePointer.innerText();
         isTimeEquals(alertTime, pointerTime, 1);
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(1).click();
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);  // поменял alertReviewIcon
+        await locators.alertNotificationImportantBtn.click();
         await locators.modalWindowTextArea.fill('Detector event');
         await locators.modalWindowAcceptButton.click();
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
@@ -1446,8 +1448,8 @@ test.describe("Alarms. Tests with macro", () => {
         await locators.liveMode.click();
         await expect(locators.videoElement.nth(0)).toBeVisible();
         await locators.singleArchiveMode.click();
- 
-        await locators.webpage.locator('.controls').evaluate(() => {
+        // добавили .first(), так как ругался на два элемента с локаторами controls
+        await locators.webpage.locator('.controls').first().evaluate(() => {
             let archivePointer: HTMLElement = document.querySelector('.control')!;
             archivePointer.style.display = "none";
         });
@@ -1477,7 +1479,7 @@ test.describe("Alarms. Tests with macro", () => {
         await createDetectorAlarmingMacro(Configuration.cameras[1], 0, "Macrocomand", true, "Black", "RAM_AlwaysIfNoActiveAlert");
 
         await locators.alertPanelButton.waitFor({ state: 'attached', timeout: 90000 });
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
         await expect(locators.alertContainer).toHaveCount(1);
@@ -1488,15 +1490,15 @@ test.describe("Alarms. Tests with macro", () => {
         
         await page.waitForTimeout(2000);
         await page.reload();
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 });
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 }); // поменял videoCell
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
         // await expect(locators.alertContainer.nth(0).locator('div').first()).toHaveCSS("background-image", /.*blob:.*/);
         await expect(locators.alertContainer.nth(0).locator('p').first()).toHaveText(`${camera.displayId}.${camera.displayName}`);
         await expect(locators.alertContainer.nth(0).locator('p').last()).toContainText(/\d?\d:\d{2}:\d{2}/);
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(0).click();
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
+        await locators.alertNotificationsBtn.click();      //поменял alertReviewIcon
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
         await expect(locators.alertPanelButton).toBeHidden();
 
@@ -1519,7 +1521,7 @@ test.describe("Alarms. Tests with macro", () => {
         await createDetectorAlarmingMacro(Configuration.cameras[2], 1, "Macrocomand", true, "Black", "RAM_AlwaysIfNoActiveAlert");
 
         await locators.alertPanelButton.waitFor({ state: 'attached', timeout: 120000 });
-        await expect(locators.videoCell.nth(1)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(2)).toHaveClass(/.*VideoCell--alert.*/);  // поменял videoCell
         await changeAVDetector(Configuration.detectors[0].uid, [{ id: "enabled", value_bool: false }]);
 
         await locators.alertPanelButton.click();
@@ -1534,8 +1536,8 @@ test.describe("Alarms. Tests with macro", () => {
         const pointerTime = await locators.archivePointer.innerText();
         isTimeEquals(alertTime, pointerTime, 1);
         await locators.alertReviewIcon.click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(0).click();
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
+        await locators.alertNotificationsBtn.click();
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
 
         await clientNotFall(page);
