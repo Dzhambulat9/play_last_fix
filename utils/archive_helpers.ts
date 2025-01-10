@@ -120,7 +120,7 @@ export async function videoIsPlayingShort(page: Page, cellNumber: number, playSe
 export async function videoIsPlaying(page: Page, cellNumber: number, playSeconds: number, mustPlay: boolean, exactFrame = false) {
     const locators = new Locators(page);
 
-    const videoCell = locators.videoCell.nth(cellNumber).locator('canvas').first();
+    const videoCell = locators.videoElement.nth(cellNumber).locator('canvas').first();
     const videoStarted = locators.videoCellWrapper.nth(cellNumber).locator('.VideoCell--playing');
 
     if (mustPlay) {

@@ -448,15 +448,15 @@ test.describe("Bookmarks. Common block", () => {
 
         await layoutAnnihilator('all');
         await locators.backToLiveButton.click();
-        await expect(locators.videoElement).toHaveCount(1);
+        await expect(locators.videoElement).toHaveCount(2);  // так как для каждого элемента раскладки есть теперь два элемента с --VideoCell --playing пришлось удвоить количество элементов 
         await createLayout(Configuration.cameras, 2, 1, "Bookmark Layout");
         await page.reload();
-        await expect(locators.videoElement).toHaveCount(2);
+        await expect(locators.videoElement).toHaveCount(4); // по аналогии с предыдущем комментарием
         await locators.topMenuButton.click();
         await locators.bookmarkMode.click();
         await expect(locators.bookmark).toHaveCount(3);
         await locators.backToLiveButton.click();
-        await expect(locators.videoElement).toHaveCount(2);
+        await expect(locators.videoElement).toHaveCount(4);
 
         await clientNotFall(page);
     });
@@ -732,14 +732,14 @@ test.describe("Bookmarks. Common block", () => {
         await locators.backToLiveButton.click();
 
         await alertLocators.alertReviewIcon.nth(0).click();
-        await expect(alertLocators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(alertLocators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
         await alertLocators.alertPanelButton.click();
         await expect(alertLocators.alertContainer).toHaveCount(1);
         let alertTime = await alertLocators.alertContainer.nth(0).locator('p').last().innerHTML();
         await alertLocators.alertPanelButton.click();
         await alertLocators.alertReviewIcon.nth(0).click();
-        await expect(alertLocators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await alertLocators.alertReviewIcon.locator('button').nth(1).click();
+        await expect(alertLocators.alertGroupReviewIcon.locator('button')).toHaveCount(3);   //сменил локатор alertReviewIcon
+        await alertLocators.alertGroupReviewIcon.locator('button').nth(1).click();           //сменил локатор alertReviewIcon
         await alertLocators.modalWindowTextArea.fill('Alert Bookmark 1');
         await alertLocators.modalWindowAcceptButton.click();
         await expect(alertLocators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);

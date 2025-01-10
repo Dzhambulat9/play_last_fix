@@ -880,21 +880,21 @@ test.describe("Alarms. Common block", () => {
         await expect(locators.alertContainer.nth(1).locator('p').last()).toContainText(/\d?\d:\d{2}:\d{2}/);
         await locators.alertReviewIcon.nth(1).click();
         await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(2).click();
+        await locators.alertGroupReviewIcon.locator('button').nth(2).click();      // поменял alertReviewIcon
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
 
         await page.waitForTimeout(2000);
         await page.reload();
-        await expect(locators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 });
-        await expect(locators.videoCell.nth(1)).not.toHaveClass(/.*VideoCell--alert.*/);
+        await expect(locators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/, { timeout: 30000 });  // поменял videoCell
+        await expect(locators.videoElement.nth(2)).not.toHaveClass(/.*VideoCell--alert.*/);                     // поменял videoCell
         await locators.alertPanelButton.click();
         await expect(locators.alertContainer).toHaveCount(1);
         // await expect(locators.alertContainer.nth(0).locator('div').first()).toHaveCSS("background-image", /.*blob:.*/);
         await expect(locators.alertContainer.nth(0).locator('p').first()).toHaveText(firstCameraName);
         await expect(locators.alertContainer.nth(0).locator('p').last()).toContainText(/\d?\d:\d{2}:\d{2}/);
         await locators.alertReviewIcon.nth(0).click();
-        await expect(locators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await locators.alertReviewIcon.locator('button').nth(0).click();
+        await expect(locators.alertGroupReviewIcon.locator('button')).toHaveCount(3);
+        await locators.alertGroupReviewIcon.locator('button').nth(0).click();
         await expect(locators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
         await expect(locators.alertPanelButton).toBeHidden();
 

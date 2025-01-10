@@ -41,7 +41,8 @@ export class Locators {
     readonly cellImage: Locator;
     readonly videoCellWrapper: Locator;
     readonly gridcell: Locator;
-    readonly videoCell: Locator;
+    readonly videoCell: Locator;   
+    readonly videoCellHidden : Locator; // Добавил
     readonly videoCellDebug: Locator;
     readonly videoCellMicro: Locator;
     readonly videoCellExport: Locator;
@@ -419,6 +420,7 @@ export class Locators {
         this.videoCellWrapper = this.webpage.getByTestId('wc_layout_cells_panel-cell_item');
         this.gridcell = this.webpage.locator('[role="gridcell"]');
         this.videoCell = this.webpage.locator('.VideoCell__video-canvas');
+        this.videoCellHidden = this.webpage.getByTestId('wc_layout_cells_panel-cell_item_video_container')
         this.videoCellDebug = this.webpage.locator('.VideoCell__debug');
         this.videoCellMicro = this.webpage.locator('[title="Microphone"]');
         this.videoCellExport = this.webpage.getByTestId('wc_layout_cells_panel-cell_item_export_button');
