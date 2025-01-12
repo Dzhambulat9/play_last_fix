@@ -753,14 +753,14 @@ test.describe("Bookmarks. Common block", () => {
 
         await locators.backToLiveButton.click();
         await alertLocators.alertReviewIcon.nth(0).click();
-        await expect(alertLocators.videoCell.nth(0)).toHaveClass(/.*VideoCell--alert.*/);
+        await expect(alertLocators.videoElement.nth(0)).toHaveClass(/.*VideoCell--alert.*/);    //Поменял локатор videoCell
         await alertLocators.alertPanelButton.click();
         await expect(alertLocators.alertContainer).toHaveCount(1);
         alertTime = await alertLocators.alertContainer.nth(0).locator('p').last().innerHTML();
         await alertLocators.alertPanelButton.click();
         await alertLocators.alertReviewIcon.nth(0).click();
-        await expect(alertLocators.alertReviewIcon.locator('button')).toHaveCount(3);
-        await alertLocators.alertReviewIcon.locator('button').nth(1).click();
+        await expect(alertLocators.alertGroupReviewIcon.locator('button')).toHaveCount(3);   //Поменял локатор alertReviewIcon
+        await alertLocators.alertGroupReviewIcon.locator('button').nth(1).click();
         await alertLocators.modalWindowTextArea.fill('Alert Bookmark 2');
         await alertLocators.modalWindowAcceptButton.click();
         await expect(alertLocators.videoCell.nth(0)).not.toHaveClass(/.*VideoCell--alert.*/);
