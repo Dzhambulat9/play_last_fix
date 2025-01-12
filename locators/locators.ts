@@ -616,7 +616,7 @@ export class Locators {
         this.exportDatePickerHours = this.webpage.locator('[role=dialog] [type="text"]').nth(0);
         this.exportDatePickerMinutes = this.webpage.locator('[role=dialog] [type="text"]').nth(1);
         this.exportDatePickerSeconds = this.webpage.locator('[role=dialog] [type="text"]').nth(2);
-        this.exportDatePickerSaveButton = this.webpage.getByRole('dialog').getByRole('button', { name: 'Save', exact: true });
+        this.exportDatePickerSaveButton = this.webpage.getByRole('dialog').getByRole('button', { name: 'OK', exact: true });   //поменялось имя кнопки с save на ok
         this.exportDatePickerCancelButton = this.webpage.getByRole('dialog').getByRole('button', { name: 'Cancel', exact: true });
         this.exportStartInput = this.webpage.getByTestId('export_menu-picker_input-begin');
         this.exportEndInput = this.webpage.getByTestId('export_menu-picker_input-end');
