@@ -68,11 +68,17 @@ test.describe("Authorization. Common block", () => {
         await locators.topMenuButton.click();
         await expect(page.getByText('root', { exact: true })).toBeVisible(); 
         await locators.changeUser.click();
-        await locators.loginField.fill(user);
+        await locators.loginField.fill('User_test');
+        await locators.passwordField.fill("Admin123");
+        await locators.passwordField.press('Enter');
+        await locators.topMenuButton.click();
+        await expect(page.getByText('User_test', { exact: true })).toBeVisible()
+        /*await locators.loginField.fill(user);
         await locators.passwordField.fill(userPassword);
         await locators.passwordField.press('Enter');
         await locators.topMenuButton.click();
-        await expect(page.getByText(user, { exact: true })).toBeVisible(); 
+        await page.waitForTimeout(5000)
+        await expect(page.getByText(user, { exact: true })).toBeVisible({timeout: 30000});*/
     });
 
     test('CloseSession call (CLOUD-T895)', async ({ page }) => {

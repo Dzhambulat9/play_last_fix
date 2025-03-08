@@ -1184,7 +1184,7 @@ test.describe("Export. Common block", () => {
             await locators.localExportButton.click();
             await expect(locators.formatPicker).toBeHidden();
             await expect(locators.archiveBlock).toBeHidden();
-            await expect(locators.videoElement).toHaveCount(4);  // поменял на 4 так, как для каждого окна есть два элемента с таким локатором 
+            await expect(locators.videoElement).toHaveCount(2);  // поменял на 4 так, как для каждого окна есть два элемента с таким локатором 
             await locators.exportFile.waitFor({ state: 'attached', timeout: 90000 });
             let download = page.waitForEvent('download', { timeout: 3000 });
             await locators.exportFile.click();

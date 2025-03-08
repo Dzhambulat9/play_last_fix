@@ -400,13 +400,15 @@ test.describe("Maps", () => {
         await locators.webpage.getByTitle(geoMapName, { exact: true }).click();
         await expect(locators.mapBoxMarker).toBeInViewport({ ratio: 1 });
         await expect(locators.mapBoxMarker.locator('p')).toHaveText(rasterMapName);
-        await locators.mapBoxMarker.locator('svg').click();
+        //await locators.mapBoxMarker.locator('svg').click();  убрал локатор 
+        await locators.mapBoxMarker.click(); 
         await expect(locators.mapBoxMarker).toBeInViewport({ ratio: 1 });
         await expect(locators.mapBoxMarker.locator('p')).toHaveText(geoMapName);
         await expect(locators.webpage.getByTitle(rasterMapName, { exact: true })).toHaveAttribute("aria-selected", "true");
         await locators.mapPanelExpandButton.click();
         await page.waitForTimeout(2000);
-        await locators.mapBoxMarker.locator('svg').click();
+        //await locators.mapBoxMarker.locator('svg').click();  убрал локатор
+        await locators.mapBoxMarker.click();
         await expect(locators.mapBoxMarker).toBeInViewport({ ratio: 1 });
         await expect(locators.mapBoxMarker.locator('p')).toHaveText(rasterMapName);
         await expect(locators.webpage.getByTitle(geoMapName, { exact: true })).toHaveAttribute("aria-selected", "true");
@@ -535,7 +537,7 @@ test.describe("Maps", () => {
         await locators.mapBoxMarker.filter({ hasText: `${camera3.displayId}.${camera3.displayName}` }).click();
         let wsFrame = await playMessage;
         await expect(locators.mapBoxPopupVideo).toBeVisible();
-        await expect(locators.videoElement).toHaveCount(3);
+        await expect(locators.videoElement).toHaveCount(6);   // поменял с 3 на 6, так как для каждого элемента теперь два локатора
         await camerasArePlaying(page, 3, 7);
         let stopCommand = waitWebSocketSentMessage(WS, ['stop', wsFrame.streamId]);
         await locators.mapBoxMarker.filter({ hasText: `${camera2.displayId}.${camera2.displayName}` }).click();
@@ -543,13 +545,13 @@ test.describe("Maps", () => {
         await expect(locators.mapBoxPopup).toBeHidden();
         await expect(locators.gridcell).toHaveCount(1);
         await expect(locators.cellTitle).toHaveText(`${camera2.displayId}.${camera2.displayName}`);
-        await expect(locators.videoElement).toBeVisible();
+        await expect(locators.videoElement.nth(0)).toBeVisible();
         await camerasArePlaying(page, 1, 5);
         playMessage = waitWebSocketSentMessage(WS, [camera1.videoStreams[1].accessPoint.slice(6), 'play']);
         await locators.mapBoxMarker.filter({ hasText: `${camera1.displayId}.${camera1.displayName}` }).click();
         wsFrame = await playMessage;
         await expect(locators.mapBoxPopupVideo).toBeVisible();
-        await expect(locators.videoElement).toHaveCount(2);
+        await expect(locators.videoElement).toHaveCount(4);
         await camerasArePlaying(page, 2, 7);
         stopCommand = waitWebSocketSentMessage(WS, ['stop', wsFrame.streamId]);
         await locators.mapBoxPopupVideo.click({ force: true });
@@ -557,7 +559,7 @@ test.describe("Maps", () => {
         await expect(locators.mapBoxPopup).toBeHidden();
         await expect(locators.gridcell).toHaveCount(1);
         await expect(locators.cellTitle).toHaveText(`${camera1.displayId}.${camera1.displayName}`);
-        await expect(locators.videoElement).toBeVisible();
+        await expect(locators.videoElement.first()).toBeVisible();
         await camerasArePlaying(page, 1, 5);
 
         await clientNotFall(page);
@@ -588,7 +590,7 @@ test.describe("Maps", () => {
         await locators.mapBoxMarker.filter({ hasText: `${camera3.displayId}.${camera3.displayName}` }).click();
         let wsFrame = await playMessage;
         await expect(locators.mapBoxPopupVideo).toBeVisible();
-        await expect(locators.videoElement).toHaveCount(3);
+        await expect(locators.videoElement).toHaveCount(6); // поменял с 3 на 6, так как для каждого элемента теперь два локатора
         await camerasArePlaying(page, 3, 7);
         let stopCommand = waitWebSocketSentMessage(WS, ['stop', wsFrame.streamId]);
         await locators.mapBoxMarker.filter({ hasText: `${camera2.displayId}.${camera2.displayName}` }).click();
@@ -674,7 +676,7 @@ test.describe("Maps", () => {
         await expect(locators.mapBoxPopup).toBeHidden();
         await expect(locators.gridcell).toBeVisible();
         await expect(locators.cellTitle).toHaveText(`${camera1.displayId}.${camera1.displayName}`);
-        await expect(locators.videoElement).toBeVisible();
+        await expect(locators.videoElement.nth(0)).toBeVisible();
         await expect(locators.gridcell.nth(0)).toBeInViewport({ ratio: 1 });
 
         await clientNotFall(page);
@@ -761,7 +763,8 @@ test.describe("Maps", () => {
         console.log("Coordinates in debug panel:", debugCoordinates);
         expect(Number(debugCoordinates[0])).toBeCloseTo(geoMarkerCoordinates.x, 1);
         expect(Number(debugCoordinates[1])).toBeCloseTo(geoMarkerCoordinates.y, 1);
-        await locators.mapBoxMarker.locator('svg').click();
+        //await locators.mapBoxMarker.locator('svg').click();  не находит элемент с локатором .locator('svg')
+        await locators.mapBoxMarker.click();
         await expect(locators.mapBoxPopupVideo).toBeVisible();
         await expect(locators.mapBoxPopup.locator(".VideoCell__debug")).toBeHidden();
 
@@ -773,7 +776,8 @@ test.describe("Maps", () => {
         console.log("Coordinates in debug panel:", debugCoordinates);
         expect(Number(debugCoordinates[0])).toBeCloseTo(rasterMarkerCoordinates.x, 2);
         expect(Number(debugCoordinates[1])).toBeCloseTo(rasterMarkerCoordinates.y, 2);
-        await locators.mapBoxMarker.locator('svg').click();
+        //await locators.mapBoxMarker.locator('svg').click(); не находит элемент с локатором .locator('svg')
+        await locators.mapBoxMarker.click();
         await expect(locators.mapBoxPopupVideo).toBeVisible();
         await expect(locators.mapBoxPopup.locator(".VideoCell__debug")).toBeHidden();
         
@@ -799,7 +803,8 @@ test.describe("Maps", () => {
 
         await locators.cellTitle.first().waitFor({ state: 'attached' });
         await locators.mapPanelButton.click();
-        await locators.mapBoxMarker.locator('svg').click();
+        //await locators.mapBoxMarker.locator('svg').click(); не находит элемент с локатором .locator('svg')
+        await locators.mapBoxMarker.click();
         await expect(locators.mapBoxPopup.locator(locators.noSignalBanner)).toBeVisible();
         await expect(locators.mapBoxPopup.locator(locators.noSignalBanner).locator('p')).toHaveText("No signal", { ignoreCase: false });
         await expect(locators.mapBoxPopup.locator(locators.noSignalBanner).locator('svg')).toBeVisible();
@@ -839,7 +844,7 @@ test.describe("Maps", () => {
         await locators.mapBoxMarker.filter({ hasText: `${camera2.displayId}.${camera2.displayName}` }).click();
         let liveStreamData = await livePlayMessage;
         await expect(locators.mapBoxPopupVideo).toBeVisible();
-        await expect(locators.videoElement).toHaveCount(2);
+        await expect(locators.videoElement).toHaveCount(4); // каждая ячейка имеет по два элемента с текущим локатором поэтому 4
         await camerasArePlaying(page, 2, 7);
 
         let liveStopCommand = waitWebSocketSentMessage(WS, ['stop', liveStreamData.streamId]);
