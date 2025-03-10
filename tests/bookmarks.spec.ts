@@ -552,11 +552,14 @@ test.describe("Bookmarks. Common block", () => {
         await createArchiveContext("Black", [Configuration.cameras[3]], true, "High");
         await page.waitForTimeout(3000);
         const startTime = new Date();
+        console.log(startTime, 'start')
         await page.waitForTimeout(10000);
         const endTime = new Date();
+        console.log(endTime, 'end')
         await createBookmark(Configuration.cameras[3].accessPoint, 'Black', timeToISO(startTime), timeToISO(endTime), testBookmarkName);
         await page.waitForTimeout(3000);
         const bookmarkNew = (await getBookmarks()).filter(element => element.comment == "Temporary Bookmark 3");
+        console.log(bookmarkNew, 'bookmarkNew')
         
         await page.reload();
         await goToBookmarkModeIfNeeded(page);
@@ -570,6 +573,7 @@ test.describe("Bookmarks. Common block", () => {
         await page.waitForTimeout(3000);
 
         const newCameraIntervals = await getArchiveIntervals("Black", Configuration.cameras[3], "future", "past");
+        console.log(newCameraIntervals, 'newCameraIntervals')
         expect(newCameraIntervals.length).toEqual(2);
         expect(newCameraIntervals[0].end).toEqual(bookmarkNew[0].begins_at + '000');
         expect(newCameraIntervals[1].begin).toEqual(bookmarkNew[0].ends_at + '000');
@@ -578,10 +582,12 @@ test.describe("Bookmarks. Common block", () => {
         await goToBookmarkModeIfNeeded(page);
         await expect(locators.bookmark).toHaveCount(4);
         const bookmarkEndTime = (await locators.bookmarkEnd.nth(0).innerText()).slice(0, 8);
+        console.log("!!!!!!!", bookmarkEndTime);
         await locators.bookmarkVideo.nth(0).click();
         await expect(locators.cellImageInFrame).toBeVisible();
         const pointerTime = await locators.pointerTimeInFrame.innerText();
-        isTimeEquals(bookmarkEndTime, pointerTime, 3); // почему-то разница в 3 секунды 
+        console.log('++++++++', pointerTime);
+        isTimeEquals(bookmarkEndTime, pointerTime, 1); // почему-то разница в 3 секунды 
 
         await clientNotFall(page);
     });
