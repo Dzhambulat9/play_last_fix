@@ -59,6 +59,7 @@ test.describe("Camera list. Common block", () => {
         await logout(page);
         await authorization(page, testUserLogin, testUserPassword);
         //Проверяем что камеры отображаются в списке
+        await locators.cameraPanelButton.click();
         await expect(locators.cameraListItem.getByText('1.Camera', { exact: true })).toBeVisible();
         await expect(locators.cameraListItem.getByText('2.Camera', { exact: true })).toBeVisible();
         await expect(locators.cameraListItem.getByText('3.Camera', { exact: true })).toBeVisible();

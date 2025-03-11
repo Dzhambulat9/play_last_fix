@@ -675,7 +675,7 @@ test.describe("Archive. Common block", () => {
         await expect(locators.cellImage).toBeVisible();
         await locators.cameraListItem.getByText(tempCamera.displayName).click();
         await expect(locators.popUpMessage).toBeVisible();
-        await expect(locators.popUpMessage).toHaveText(`The camera has not an archive`);
+        await expect(locators.popUpMessage).toHaveText(`The camera doesn't have an archive`);
         await locators.popUpMessage.waitFor({ state: 'detached', timeout: 10000 });
         await expect(locators.cellTitle).toContainText('Single archive');
         await expect(locators.cellImage).toBeVisible();
@@ -688,7 +688,7 @@ test.describe("Archive. Common block", () => {
         await expect(locators.cellImage).toBeVisible();
         await locators.cameraListItem.getByText(tempCamera.displayName).click();
         await expect(locators.popUpMessage).toBeVisible();
-        await expect(locators.popUpMessage).toHaveText(`The camera has not an archive`);
+        await expect(locators.popUpMessage).toHaveText(`The camera doesn't have an archive`);
         await locators.popUpMessage.waitFor({ state: 'detached', timeout: 10000 });
         await expect(locators.cellTitle).toContainText('Single archive');
         await expect(locators.cellImage).toBeVisible();

@@ -121,7 +121,7 @@ export async function videoIsPlaying(page: Page, cellNumber: number, playSeconds
     const locators = new Locators(page);
 
     //const videoCell = locators.videoElement.nth(cellNumber).locator('canvas').first();
-    const videoCell = locators.videoElement.nth(cellNumber*2);
+    const videoCell = locators.videoElement.nth(cellNumber);
     const videoStarted = locators.videoCellWrapper.nth(cellNumber).locator('.VideoCell--playing').first(); // добавил .first()
 
     if (mustPlay) {
