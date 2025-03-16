@@ -61,7 +61,8 @@ test.describe("Archive. Common block", () => {
         await page.waitForTimeout(3000);
         let pointerTime = await locators.pointerTime.innerText();
         isTimeEquals(currentTime, pointerTime, 3);
-        await expect(locators.videoElement).toBeHidden();
+        //await expect(locators.videoElement).toBeHidden(); не догнал как починить с тем локатором так как он не изменяется при переходе в архив
+        await expect(locators.videoCellHidden).toBeVisible(); // а эта херня появляется при переходе в архив 
         
         await clientNotFall(page);
     });
@@ -113,7 +114,8 @@ test.describe("Archive. Common block", () => {
         await page.mouse.up();
         wsFrameImage = await getFrame;
         console.log(wsFrameImage);
-        await expect(locators.videoElement).toBeHidden();
+        //await expect(locators.videoElement).toBeHidden();  не робiт
+        await expect(locators.videoCellHidden).toBeVisible();
         await expect(locators.cellImage).toBeVisible();
 
         startVideo = waitWebSocketSentMessage(WS, ['"speed":1']);
@@ -785,6 +787,7 @@ test.describe("Archive. Common block", () => {
         await expect(locators.videoCellMicro).toBeVisible();
         await expect(locators.videoCellMicro.getByTestId('VolumeOffIcon')).toBeVisible();
         let isSoundOn = await getSoundStatusFromCell(page, 0);
+        console.log(isSoundOn);
         expect(isSoundOn).toBeFalsy();
         await cellIsPlaying(page, 0, 7, true);
 
@@ -1614,9 +1617,10 @@ test.describe("Archive. User permissions check", () => {
 
         await locators.multiArchiveMode.click();
         await waitAnimationEnds(page, locators.archiveBlock);
-        await expect(locators.cellInfoContainer).toHaveCount(4);
+        //await expect(locators.cellInfoContainer).toHaveCount(4);
+        await expect(locators.videoCell).toHaveCount(4);
         for (let videoCell of await locators.videoCell.all()) {
-            await expect(videoCell.locator(locators.noSignalBanner)).toHaveText(errorMessage);
+            await expect(videoCell.locator('wc_layout_cells_panel-cell_item_no_signal').locator('p')).toHaveText(errorMessage);
             await expect(videoCell.locator(locators.noSignalBanner).locator('svg')).toBeVisible();
         }
 

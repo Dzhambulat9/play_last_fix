@@ -412,7 +412,7 @@ export function extractMonthInterval(date: Date) {
     return `${year}${month}01T000000.000/${year}${month}${lastDay}T235959.999`
 }
 
-export async function getSoundStatusFromCell(page: Page, cellNumber: number) {
+/*export async function getSoundStatusFromCell(page: Page, cellNumber: number) {
     const locators = new Locators(page);
     
     const videoStarted = locators.videoCellWrapper.nth(cellNumber).locator('.VideoCell--playing');
@@ -423,6 +423,22 @@ export async function getSoundStatusFromCell(page: Page, cellNumber: number) {
         return !(videoCell!.muted);
     });
 
+    return isSoundOn;
+}*/
+export async function getSoundStatusFromCell(page: Page, cellNumber: number) {
+    const locators = new Locators(page);
+    
+    // Ожидание появления активной ячейки видео
+    const videoWrapper = locators.videoCellWrapper.nth(cellNumber);
+    await videoWrapper.locator('.VideoCell--playing').waitFor({ state: 'attached' });
+
+    // Локатор для видео внутри правильного контейнера
+    const videoLocator = videoWrapper.locator('video');
+    await videoLocator.waitFor({ state: 'attached' }); // Ждём, пока видео загрузится
+
+    // Получаем статус звука
+    let isSoundOn = await videoLocator.evaluate((video) => !video.muted);
+    
     return isSoundOn;
 }
 

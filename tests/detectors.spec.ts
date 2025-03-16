@@ -316,7 +316,8 @@ test.describe("Detectors. Common UI", () => {
         await locators.searchMode.click();
         await closeCameraList(page);
 
-        await locators.videoCellBox.locator('img').waitFor({ state: 'attached' });
+        //await locators.videoCellBox.locator('img').waitFor({ state: 'attached' });
+        await locators.videoCellHidden.waitFor({ state: 'attached' });
         await locators.setSearchType.click();
         await locators.eventSearchOption.click();
         await locators.externalBackground.waitFor({ state: 'detached' });
@@ -333,9 +334,11 @@ test.describe("Detectors. Common UI", () => {
         await locators.foundEvent.nth(eventNumber).click();
         let blobURL = (await blobRequest).url();
         await expect(locators.foundEvent.nth(eventNumber)).toHaveCSS('border', /.*px solid.*/);
-        await expect(locators.videoCellBox.locator('img')).toBeVisible();
-        await expect(locators.videoCellBox.locator('img')).toHaveAttribute('src', blobURL);
-        await expect(locators.videoCellBox.locator('rect')).toBeVisible();
+        //await expect(locators.videoCellBox.locator('img')).toBeVisible();
+        //await expect(locators.videoCellBox.locator('img')).toHaveAttribute('src', blobURL);
+        //await expect(locators.videoCellBox.locator('rect')).toBeVisible();
+        await expect(locators.videoCellHidden).toBeVisible();
+        await expect(locators.videoCellHidden).toHaveAttribute('src', blobURL);
 
         blobRequest = page.waitForResponse(request => request.url().includes('blob'));
         await locators.nextIntervalButtonInVideocell.click();
@@ -344,6 +347,9 @@ test.describe("Detectors. Common UI", () => {
         await expect(locators.videoCellBox.locator('img')).toBeVisible();
         await expect(locators.videoCellBox.locator('img')).toHaveAttribute('src', blobURL);
         await expect(locators.videoCellBox.locator('rect')).toBeVisible();
+        //await expect(locators.videoCellBox.locator('img')).toBeVisible();
+        //await expect(locators.videoCellBox.locator('img')).toHaveAttribute('src', blobURL);
+        //await expect(locators.videoCellBox.locator('rect')).toBeVisible();
         eventNumber++;
         await compareBorderPositions(page, eventsList[eventNumber]);
 

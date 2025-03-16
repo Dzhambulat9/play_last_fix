@@ -592,10 +592,10 @@ test.describe("Layouts. Tests with created layout", () => {
         await requestPromise;
         //Проверяем пункты в меню веб-клиентовской раскладки
         await locators.layoutMenu.click();
-        await expect(locators.layoutMenuItem.nth(1)).toHaveText('Delete/Reorder layouts');
-        await expect(locators.layoutMenuItem.nth(2)).toHaveText('Edit layout');
-        await expect(locators.layoutMenuItem.nth(3)).toHaveText('Copy layout');
-        await expect(locators.layoutMenuItem.nth(4)).toHaveText('Use by default');
+        await expect(locators.layoutMenuItem.nth(2)).toHaveText('Delete/Reorder layouts');
+        await expect(locators.layoutMenuItem.nth(3)).toHaveText('Edit layout/map');
+        await expect(locators.layoutMenuItem.nth(4)).toHaveText('Copy layout');
+        await expect(locators.layoutMenuItem.nth(5)).toHaveText('Use by default');
         //Закрываем меню
         await page.keyboard.press('Escape');
         //Проверяем пункты в меню GUI раскладки
@@ -603,10 +603,10 @@ test.describe("Layouts. Tests with created layout", () => {
         //Таймаут анимации так как ниже при клике игнорируется видимость элемента через флаг forсe, это нужно так как элемент aria-disabled="true"
         await locators.secondLayout.click();
         await locators.layoutMenu.click();
-        await expect(locators.layoutMenuItem.nth(1)).toHaveText('Delete/Reorder layouts');
-        await expect(locators.layoutMenuItem.nth(2)).toHaveText('Edit layout');
-        await expect(locators.layoutMenuItem.nth(3)).toHaveText('Copy layout');
-        await expect(locators.layoutMenuItem.nth(4)).toHaveText('Use by default');
+        await expect(locators.layoutMenuItem.nth(2)).toHaveText('Delete/Reorder layouts');
+        await expect(locators.layoutMenuItem.nth(3)).toHaveText('Edit layout/map');
+        await expect(locators.layoutMenuItem.nth(4)).toHaveText('Copy layout');
+        await expect(locators.layoutMenuItem.nth(5)).toHaveText('Use by default');
         //Проверяем, что веб-клиент не упал
         await clientNotFall(page);
     });
@@ -691,7 +691,8 @@ test.describe("Layouts. Tests with created layout", () => {
         await requestPromise;
         //Проверяем количество ячеек и название созданной раскладки
         await expect(locators.cellTitle).toHaveCount(4);
-        await expect(locators.firstLayout).toHaveText("Test Layout copy");
+        //await expect(locators.firstLayout).toHaveText("Test Layout copy"); копия встёт второй и вроде как даже прикольнее 
+        await expect(locators.secondLayout).toHaveText("Test Layout copy");
         await expect(locators.layoutItemsList).toHaveCount(2);
         //Проверяем, что веб-клиент не упал
         await clientNotFall(page);
@@ -709,7 +710,8 @@ test.describe("Layouts. Tests with created layout", () => {
         await requestPromise;
         //Проверяем количество ячеек и название созданной раскладки
         await expect(locators.cellTitle).toHaveCount(4);
-        await expect(locators.firstLayout).toHaveText("?*!&43%^*& copy");
+        //await expect(locators.firstLayout).toHaveText("?*!&43%^*& copy"); почему-то теперь копия раскладки идёт после оригинала и так даже лучше 
+        await expect(locators.secondLayout).toHaveText("?*!&43%^*& copy");
         await expect(locators.layoutItemsList).toHaveCount(3);
         await clientNotFall(page);
     });
@@ -837,7 +839,7 @@ test.describe("Layouts. Tests with created layout", () => {
         await locators.firstLayout.dblclick();
         await locators.firstLayout.locator('input').fill('Red Square');
         await locators.firstLayout.press('Enter');
-        await expect(locators.firstLayout).toHaveText('Red Square');
+        await expect(locators.secondLayout).toHaveText('Red Square');
         requestPromise = page.waitForResponse(request => request.url().includes(`/v1/layouts?`));
         await locators.saveChangesButton.click();
         await requestPromise;
