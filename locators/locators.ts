@@ -594,7 +594,7 @@ export class Locators {
         this.menuUseByDefault = this.webpage.getByRole('menuitem', { name: 'Use by default', exact: true });
         this.menuNotUseByDefault = this.webpage.getByRole('menuitem', { name: 'Do not use by default', exact: true });
         this.menuCopyLayout = this.webpage.getByRole('menuitem', { name: 'Copy layout', exact: true });
-        this.menuEditLayout = this.webpage.getByRole('menuitem', { name: 'Edit layout', exact: true });
+        this.menuEditLayout = this.webpage.getByRole('menuitem', { name: 'Edit layout/map', exact: true });
         this.menuDeleteOrReorder = this.webpage.getByRole('menuitem', { name: 'Delete/Reorder layouts', exact: true });
         this.menuShareLayout = this.webpage.getByRole('menuitem', { name: 'Share with', exact: true });
 
